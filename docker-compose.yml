@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  suricata_analyzer:
+    build: .
+    volumes:
+      - /var/log/suricata:/var/log/suricata:ro
+      - ./output:/output
+      - ./ip_blacklist.txt:/app/ip_blacklist.txt:ro
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - EVE_JSON_LOG_PATH=/var/log/suricata/eve.json
+      - OUTPUT_DIR=/output
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=ids_db
+      - DB_USER=ids_user
+      - DB_PASSWORD=your_secure_password
+    depends_on:
+      - db
+    networks:
+      - ids_network
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=ids_db
+      - POSTGRES_USER=ids_user
+      - POSTGRES_PASSWORD=your_secure_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ids_network
+
+volumes:
+  postgres_data:
+
+networks:
+  ids_network:
+    driver: bridge

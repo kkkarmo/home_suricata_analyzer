@@ -1,0 +1,3 @@
+groq
+watchdog
+psycopg2-binary

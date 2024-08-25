@@ -1,0 +1,13 @@
+*.log
+*.pcap
+*.json
+chatgpt-apikey.txt
+github_token.txt
+anythingLLM/
+dietpi/
+git_practice/
+kamol00/
+rules/
+tavily/
+*.bk.working
+suricata_*_analysis_*.txt
